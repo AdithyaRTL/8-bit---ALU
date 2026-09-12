@@ -48,7 +48,7 @@ The ALU generates an 8-bit main result along with an additional 8-bit high resul
 | `1110` | Greater Than | `A > B` |
 | `1111` | Equality | `A == B` |
 
-
+## Tools Used
 
 | Tool | Purpose |
 |------|---------|
