@@ -48,8 +48,12 @@ The ALU generates an 8-bit main result along with an additional 8-bit high resul
 | `1110` | Greater Than | `A > B` |
 | `1111` | Equality | `A == B` |
 
-      v
-        ALU_Out[7:0]  ALU_Out_High[7:0]  CarryOut
-                                             |
-                                             v
-                                           Zero
+
+
+| Tool | Purpose |
+|------|---------|
+| Verilog HDL | RTL design |
+| Icarus Verilog | RTL simulation |
+| GTKWave | Waveform analysis |
+| Yosys | RTL synthesis |
+| GitHub | Version control and documentation |
