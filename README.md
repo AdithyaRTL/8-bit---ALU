@@ -48,6 +48,100 @@ The ALU generates an 8-bit main result along with an additional 8-bit high resul
 | `1110` | Greater Than | `A > B` |
 | `1111` | Equality | `A == B` |
 
+## RTL Implementation
+
+The ALU is implemented using behavioral-level Verilog HDL as a combinational design.
+The main operation-selection logic is implemented using a case statement controlled by ALU_Sel.
+
+always @(*) begin
+    case (ALU_Sel)
+        // ALU operations
+    endcase
+end
+
+Internal registers are used to capture extended arithmetic results:
+
+reg [8:0]  temp;
+reg [15:0] mul_temp;
+
+The 9-bit temporary register allows the design to capture carry information during addition and subtraction, while the 16-bit multiplication register preserves the complete multiplication result.
+
+## Verification
+
+The ALU functionality can be verified by applying different combinations of:
+- A
+- B
+- ALU_Sel
+and observing:
+- ALU_Out
+- ALU_Out_High
+- CarryOut
+- Zero
+
+The testbench exercises the supported ALU operations and the resulting waveforms can be analyzed using GTKWave.
+Simulation
+
+## The design was simulated using:
+
+## Icarus Verilog
+Icarus Verilog is used to compile and execute the Verilog RTL and testbench.
+The generated waveform can then be viewed using:
+
+## GTKWave
+Simulation Flow
+
+Verilog RTL
+     |
+     v
+Testbench
+     |
+     v
+Icarus Verilog
+     |
+     v
+VCD Waveform
+     |
+     v
+GTKWave
+     |
+     v
+Functional Verification
+
+## Synthesis
+The RTL design is synthesized using Yosys.
+The synthesis flow converts the behavioral Verilog description into a synthesized hardware representation.
+
+Verilog RTL
+     |
+     v
+   Yosys
+     |
+     v
+RTL Synthesis
+     |
+     v
+Synthesized Hardware
+
+This provides an additional validation step by confirming that the RTL description can be synthesized into digital hardware.
+
+## Project Structure
+
+8-bit-ALU/
+│
+├── rtl/
+│   └── alu_8bit.v
+│
+├── testbench/
+│   └── alu_8bit_tb.v
+│
+├── simulation/
+│   └── alu_8bit.vcd
+│
+├── Architecture/
+│   └── alu_architecture.png
+│
+└── README.md
+
 ## Tools Used
 
 | Tool | Purpose |
@@ -57,3 +151,50 @@ The ALU generates an 8-bit main result along with an additional 8-bit high resul
 | GTKWave | Waveform analysis |
 | Yosys | RTL synthesis |
 | GitHub | Version control and documentation |
+
+## How to Run
+
+## Compile the Design
+
+iverilog -o alu_sim rtl/alu_8bit.v testbench/alu_8bit_tb.v
+
+## Run the Simulation
+
+vvp alu_sim
+
+## Open the Waveform
+
+gtkwave alu_8bit.vcd
+
+## Key Learning Outcomes
+
+Through this project, I gained practical experience in:
+- Behavioral Verilog modeling
+- RTL design
+- Combinational logic design
+- ALU architecture
+- Arithmetic datapath design
+- Shift and rotate operations
+- Bitwise logic operations
+- Comparison logic
+- Status flag generation
+- Testbench development
+- Functional verification
+- Waveform analysis
+- RTL synthesis using Yosys
+
+## Future Enhancements
+
+Possible extensions to this ALU include:
+- Parameterized ALU width
+- Additional comparison operations
+- Arithmetic shift operations
+- More advanced multiplication and division architectures
+- Integration with a register file
+- Integration into a processor datapath
+- FPGA implementation
+- Physical design using an RTL-to-GDSII flow
+
+## Conclusion
+
+This project demonstrates the design and implementation of an 8-bit Arithmetic Logic Unit using Verilog HDL with 16 selectable operations across arithmetic, shift/rotate, bitwise logic, and comparison categories. The project provides practical exposure to RTL design, functional verification, waveform analysis, and synthesis, forming a foundation for larger digital processor and datapath designs.
